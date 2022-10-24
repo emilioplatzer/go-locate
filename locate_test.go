@@ -56,7 +56,12 @@ func TestErrorDir(t *testing.T) {
 	if len(obtained) != 1 {
 		t.Fatalf("One erro expected, obtained %v ", obtained)
 	}
-	if !strings.HasPrefix(obtained[0], "open ./fixtures/cuac!")  {
+	if !strings.HasPrefix(obtained[0], "open ./fixtures/cuac!") {
 		t.Fatalf("No prefix %v ", obtained[0])
 	}
 }
+
+/*
+go test . -v -cover -coverprofile=coverage.out
+go tool cover -html=coverage 
+*/
