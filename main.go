@@ -55,21 +55,21 @@ func main(){
 		}
 		var found = false
 		var paths = strings.Split(Opts.PathList, Opts.PathSeparator)
-		Locate(
-			fileToFind,
-			paths,
-			Opts.ExtList,
-			func(path string){
+		var opts = LocateOptions{
+			fileToFind: fileToFind,
+			paths: paths,
+			extList: Opts.ExtList,
+			onFound: func(path string){
 				if Opts.Verbose && !found {
 					fmt.Println("\nFound:")
 				}
 				fmt.Println(path)
 				found = true
 			},
-			func(err error){
+			onError: func(err error){
 				fmt.Println(err)
-			},
-		)
+			}}
+		Locate(opts)
 		if !found {
 			fmt.Println(fileToFind, "not found")
 		}
