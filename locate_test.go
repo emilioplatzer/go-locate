@@ -55,10 +55,17 @@ func TestFindOne(t *testing.T) {
 	compareOk(t, result, []string{ filepath.Join("./fixtures/one", "one.md")})
 }
 
-func TestFindTwo(t *testing.T) {
+func TestFindTwoAndSkipEmptyPath(t *testing.T) {
 	var opts, result = commonLocateOpts(t, "both", true)
+	opts.paths = append(opts.paths, "")
 	Locate(opts)
 	compareOk(t, result, []string{ filepath.Join("./fixtures/one", "both.docx"),  filepath.Join("./fixtures/two", "both.md")})
+}
+
+func TestFindExacgtName(t *testing.T) {
+	var opts, result = commonLocateOpts(t, "one.txt", true)
+	Locate(opts)
+	compareOk(t, result, []string{ filepath.Join("./fixtures/one", "one.txt")})
 }
 
 func TestErrorDir(t *testing.T) {
@@ -76,6 +83,7 @@ func TestErrorDir(t *testing.T) {
 /*
 go run . cmd
 go test -v
-go test . -v -cover -coverprofile=coverage.out
+go test . -v -cover -coverprofile=coverage
 go tool cover -html=coverage 
+gobco
 */
